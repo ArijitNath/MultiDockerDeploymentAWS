@@ -1,0 +1,26 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t arijitnath92/complex-react -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true arijitnath92/complex-react npm test
+
+after_success:
+    - docker build -t arijitnath92/multidocker-client ./client
+    - docker build -t arijitnath92/multidocker-nginx ./nginx
+    - docker build -t arijitnath92/multidocker-server ./server
+    - docker build -t arijitnath92/multidocker-worker ./worker
+
+    #login to docker cli
+
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+    # Take the prod images and pus to docker hub
+
+    - docker push arijitnath92/multidocker-client
+    - docker push arijitnath92/multidocker-nginx
+    - docker push arijitnath92/multidocker-server
+    - docker push arijitnath92/multidocker-worker

@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "Client",
+            "image": "arijitnath92/multidocker-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "Server",
+            "image": "arijitnath92/multidocker-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "Worker",
+            "image": "arijitnath92/multidocker-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "Nginx",
+            "image": "arijitnath92/multidocker-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                { 
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["Client", "Server"]
+        }
+    ]
+}

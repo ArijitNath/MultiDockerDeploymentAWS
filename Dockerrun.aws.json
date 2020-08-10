@@ -5,19 +5,22 @@
             "name": "Client",
             "image": "arijitnath92/multidocker-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "Server",
             "image": "arijitnath92/multidocker-server",
             "hostname": "api",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "Worker",
             "image": "arijitnath92/multidocker-worker",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "Nginx",
@@ -30,7 +33,8 @@
                     "containerPort": 80
                 }
             ],
-            "links": ["Client", "Server"]
+            "links": ["Client", "Server"],
+            "memory": 128
         }
     ]
 }
